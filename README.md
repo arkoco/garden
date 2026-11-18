@@ -36,6 +36,19 @@ npx quartz check              # tsc + prettier 检查
 - 草稿用 frontmatter `draft: true`（Quartz 原生会跳过），不要靠"记得别 push"。
 - 图片放 `content/attachments/`，**只要正文必需的截图**。剪藏的装饰图、广告图一律不留——公开仓库 1GB 是软上限。
 
+## Obsidian 配置（一次就好）
+
+1. Obsidian → 打开文件夹 → 选 `content/`（不是仓库根目录）。
+2. 设置 → 文件与链接 → **附件默认位置**设为 `attachments` 子文件夹。
+3. 设置 → 模板 → 模板文件夹设为 `templates`。
+4. Web Clipper 扩展里新建一个模板：
+   - 保存位置 `raw/`，格式 Markdown
+   - 属性加 `source`、`author`、`clipped`（日期）、`tags`
+   - **`draft: true` 写进模板**，这样即使误存进了 `notes/` 也不会发布
+5. 剪藏时的正常流程：`raw/` 里读原文 → 在 `notes/` 新建一页 → 抄三行判断 → 原文留在 `raw/` 不动。
+
+`raw/` 在 `.gitignore` 里，也在 `ignorePatterns` 里，两道保险；但它**必须放在 `content/` 内**，否则 Obsidian 打不开原文。
+
 ## 部署
 
 主部署在 **Cloudflare Pages**：连本仓库，构建命令 `node ./quartz/bootstrap-cli.mjs build`，输出目录 `public`，环境变量 `NODE_VERSION=22`。
