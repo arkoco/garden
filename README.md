@@ -2,7 +2,7 @@
 
 Java 后端知识库。不是博客——博客要求"一次说完"，这里允许一篇笔记今天三段、明年十段。
 
-线上地址：<https://arkoco.github.io/garden>
+线上地址：<https://garden.arkoco.com>
 主站（成篇长文）：<https://arkoco.github.io>
 
 ## 三层结构
@@ -38,9 +38,11 @@ npx quartz check              # tsc + prettier 检查
 
 ## 部署
 
-推 `main` 触发 `.github/workflows/deploy.yml`，构建 `public/` 并发布到 GitHub Pages（项目页，路径 `/garden`）。
+主部署在 **Cloudflare Pages**：连本仓库，构建命令 `node ./quartz/bootstrap-cli.mjs build`，输出目录 `public`，环境变量 `NODE_VERSION=22`。
 
-`quartz.config.ts` 里的 `baseUrl` 必须和实际访问路径一致，否则 sitemap / RSS / OG 的绝对链接会错。换域名时要改这一行。
+`main` 上另有 `.github/workflows/deploy.yml` 兜底发布到 GitHub Pages（`arkoco.github.io/garden`），它用 `QUARTZ_BASE_URL` 覆盖 `baseUrl`，否则项目页多一层路径会让整站链接错。
+
+`baseUrl` 必须和实际访问路径一致，否则 sitemap / RSS / OG 的绝对链接会错。换域名时改 `quartz.config.ts` 里的默认值。
 
 ## 关于 Quartz 本体
 

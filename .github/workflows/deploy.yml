@@ -27,6 +27,9 @@ jobs:
       # 不用 `npx quartz build`：Windows 上提交的文件可能没有可执行位，
       # 在 Linux runner 上会报 "quartz: Permission denied"。直接交给 node。
       - run: node ./quartz/bootstrap-cli.mjs build
+        env:
+          # GitHub Pages 是项目页，多一层 /garden；正式域名走 Cloudflare Pages
+          QUARTZ_BASE_URL: arkoco.github.io/garden
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public

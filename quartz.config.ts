@@ -14,7 +14,10 @@ const config: QuartzConfig = {
     enablePopovers: true,
     analytics: null,
     locale: "zh-CN",
-    baseUrl: "arkoco.github.io/garden",
+    // 站点根路径。sitemap / RSS / OG 的绝对链接都靠它，写错会让整站链接错。
+    // 默认是正式域名；GitHub Pages 那条 workflow 会用环境变量覆盖成
+    // arkoco.github.io/garden（项目页，多一层路径），这样两个部署目标都能用。
+    baseUrl: process.env.QUARTZ_BASE_URL ?? "garden.arkoco.com",
     // raw/ 是剪藏原文（已在 .gitignore 里），templates/ 是模板，private/ 是草稿。
     // 这三类都不进入构建产物——这是"原文不公开"的第一道物理隔离。
     ignorePatterns: ["private", "templates", ".obsidian", "raw"],
