@@ -1,0 +1,17 @@
+.DS_Store
+node_modules
+public
+prof
+tsconfig.tsbuildinfo
+.quartz-cache
+.replit
+replit.nix
+
+# 剪藏原文：永远不进 Git。
+# 这是"原文只作底稿、不对外"的物理隔离——不依赖任何人的自觉。
+content/raw/
+
+# Obsidian：配置值得跟着仓库走，工作区布局不值得
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache

@@ -1,0 +1,52 @@
+@use "./base.scss";
+
+/*
+ * 站点定制
+ *
+ * 两条约束：
+ * 1. 字体一律用系统本地字体。Quartz 的 `fontOrigin: "local"` 只是"不下载字体"，
+ *    并不会给出中文字体栈，所以这里必须显式写。
+ * 2. Quartz 会把主题变量拼在样式表**之后**（`joinStyles`），所以 `:root {}` 会被覆盖。
+ *    用 `:root:root` 提高一级特异性来压过它 —— 不要改成单个 `:root`。
+ */
+
+:root:root {
+  --titleFont: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --headerFont: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --bodyFont: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Segoe UI", system-ui,
+    sans-serif;
+  --codeFont: "JetBrains Mono", "Cascadia Code", "Consolas", "Courier New", monospace;
+}
+
+/* 中文正文行高比默认略大，长段落更好读 */
+article p,
+article li {
+  line-height: 1.85;
+}
+
+/* 标题收紧一点字距，编辑杂志观感 */
+h1,
+h2,
+h3 {
+  letter-spacing: 0.01em;
+}
+
+/* 引用块：用主题的胭脂色做左边线，标明"这是别人的话" */
+blockquote {
+  border-left: 3px solid var(--secondary);
+  margin-left: 0;
+  padding-left: 1rem;
+  opacity: 0.9;
+}
+
+/* 正文里的链接始终带下划线，否则深色背景下不好认 */
+article a.internal,
+article a.external {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* 代码块字号略小，避免中文注释被挤 */
+pre > code {
+  font-size: 0.86rem;
+}
