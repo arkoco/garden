@@ -24,7 +24,9 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npx quartz build
+      # 不用 `npx quartz build`：Windows 上提交的文件可能没有可执行位，
+      # 在 Linux runner 上会报 "quartz: Permission denied"。直接交给 node。
+      - run: node ./quartz/bootstrap-cli.mjs build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public
