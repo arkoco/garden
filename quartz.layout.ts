@@ -12,7 +12,10 @@ export const sharedPageComponents: SharedLayout = {
         title: "最近更新",
         limit: 10,
         showTags: false,
-        filter: (f) => f.slug !== "index",
+        // 只列笔记和主题页，别把首页、变更日志、目录页混进来
+        filter: (f) =>
+          (f.slug?.startsWith("notes/") || f.slug?.startsWith("wiki/")) &&
+          !f.slug?.endsWith("index"),
       }),
       condition: (page) => page.fileData.slug === "index",
     }),
@@ -32,7 +35,11 @@ export const defaultContentPageLayout: PageLayout = {
       component: Component.Breadcrumbs(),
       condition: (page) => page.fileData.slug !== "index",
     }),
-    Component.ArticleTitle(),
+    Component.ConditionalRender({
+      component: Component.ArticleTitle(),
+      // 首页的标题已经由左栏 PageTitle 显示，正文里再来一次是重复
+      condition: (page) => page.fileData.slug !== "index",
+    }),
     Component.ContentMeta(),
     Component.TagList(),
   ],
